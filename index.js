@@ -13,7 +13,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url))
 // app.use('/', routes)
 
 app.use(express.json()) //
-app.use(express.static(__dirname + '/public'))
+app.use(express.static(__dirname + '/'))
 // app.use(function (req, res, next) {
 //   res
 //     .status(404)
