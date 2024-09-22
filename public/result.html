@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script
+    <script async
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBfO515NyW1_dF23Y9ImEC74oCV647PUAw&libraries=places"></script>
     <title>Selected Zone</title>
     <style>
@@ -12,11 +12,15 @@
             height: 500px;
             width: 100%;
         }
+        /* Hide the map type and label controls */
+        .gmnoprint {
+            display: none !important; /* Hide the default UI */
+        }
     </style>
 </head>
 
 <body>
-    <h1>Selected Zone</h1>
+    <h1 style="display: none;">Selected Zone</h1> <!-- Hiding the title -->
     <div id="map"></div>
 
     <script>
@@ -25,16 +29,32 @@
         const lat = parseFloat(localStorage.getItem('lat'));
         const lng = parseFloat(localStorage.getItem('lng'));
 
-        // Display the map with the selected area
-        const map = new google.maps.Map(document.getElementById('map'), {
+        // Display the map with the selected area, set to satellite view with no labels
+        const mapOptions = {
             center: { lat: lat, lng: lng },
-            zoom: 16
-        });
+            zoom: 16,
+            mapTypeId: 'satellite', // Set default to satellite view
+            styles: [
+                {
+                    featureType: 'all',
+                    elementType: 'labels',
+                    stylers: [{ visibility: 'off' }] // Hide all labels
+                }
+            ],
+            disableDefaultUI: true, // Disable default UI
+        };
+
+        const map = new google.maps.Map(document.getElementById('map'), mapOptions);
 
         const marker = new google.maps.Marker({
             position: { lat: lat, lng: lng },
             map: map,
             title: address
+        });
+
+        // Allow manual repositioning of the map
+        google.maps.event.addListener(map, 'click', function(event) {
+            marker.setPosition(event.latLng); // Move marker on map click
         });
     </script>
 </body>

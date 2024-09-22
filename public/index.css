@@ -10,11 +10,22 @@ body {
 .form-container {
   border-radius: 12px;
   background-color:  rgba(148, 187, 233, 1);
-  padding: 64px;
+  padding: 16px 36px;
   gap: 12px;
 }
 
 .search-icon {
   position: absolute;
   transform: translate(-20px, 7.5px);
+}
+
+.bi-arrow-right{
+  position: absolute;
+  transform: translate(-20px, 7.5px);
+  z-index: 9999;
+}
+
+#continueBtn{
+  border-top-left-radius: 0px!important;
+  border-bottom-left-radius: 0px!important;
 }
